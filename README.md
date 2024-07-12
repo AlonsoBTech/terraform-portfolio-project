@@ -46,15 +46,10 @@ DynamoDB Creation:
 
 Create a terraform folder within your Node.js project folder.
 
-</details>
-
-<details>
-<summary><code>state.tf</code></summary>
 
 ```bash
 mkdir terraform-js
 ```
-</details>
 
 Now create your terraform "state.tf" file which we will be using for having our state file store on AWS 
 as our backend instead of having it stored locally.
@@ -62,7 +57,7 @@ as our backend instead of having it stored locally.
 </details>
 
 <details>
-<summary><code>providers.tf</code></summary>
+<summary><code>state.tf</code></summary>
 
 ```bash
 terraform {
