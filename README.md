@@ -46,13 +46,12 @@ DynamoDB Creation:
 
 Create a terraform folder within your Node.js project folder.
 
-
 ```bash
 mkdir terraform-js
 ```
 
 Now create your terraform "state.tf" file which we will be using for having our state file store on AWS 
-as our backend instead of having it stored locally.
+as our backend instead of having it stored locally. 
 
 </details>
 
@@ -70,3 +69,296 @@ terraform {
 }
 ```
 </details>
+
+Once the "state.f" is done save it then create your "main.tf" file. This is where our main code will be located.
+What we will be creating with our code for the "main.tf"
+are:
+- S3 Bucket
+- Amazon CloudFront
+For the S3 bucket we need to configure the bucket ownership, configure public access for the website, 
+configure the ACL (Access Control List), set the bucket policy and configure the website configuration for our "index.hmtl".
+
+</details>
+
+<details>
+<summary><code>S3 Bucket Configuration</code></summary>
+
+```bash
+# S3 Bucket
+resource "aws_s3_bucket" "nextjs_bucket" {
+  bucket = "aeb-blog-nextjs-bucket"
+
+  tags = {
+    Name        = "AEB-Blog Next.js Bucket"
+    Environment = "Dev"
+  }
+}
+
+# S3 Bucket Ownership
+resource "aws_s3_bucket_ownership_controls" "nextjs_bucket_ownership" {
+  bucket = aws_s3_bucket.nextjs_bucket.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+# S3 Bucket Public Access Block
+resource "aws_s3_bucket_public_access_block" "nextjs_public_access_block" {
+  bucket = aws_s3_bucket.nextjs_bucket.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+# S3 Bucket ACLs
+resource "aws_s3_bucket_acl" "nextjs_bucket_acl" {
+  depends_on = [
+    aws_s3_bucket_ownership_controls.nextjs_bucket_ownership,
+    aws_s3_bucket_public_access_block.nextjs_public_access_block
+  ]
+
+  bucket = aws_s3_bucket.nextjs_bucket.id
+  acl    = "public-read"
+}
+
+# S3 Bucket Website Configuration
+resource "aws_s3_bucket_website_configuration" "nextjs_website_config" {
+  bucket = aws_s3_bucket.nextjs_bucket.id
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
+  }
+}
+
+# S3 Bucket Policy
+resource "aws_s3_bucket_policy" "nextjs_bucket_policy" {
+  bucket = aws_s3_bucket.nextjs_bucket.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.nextjs_bucket.arn}/*"
+      }
+    ]
+  })
+}
+```
+</details>
+
+Now we need to create our CloudFront distribution. The CloudFront distribution will need 
+
+</details>
+
+<details>
+<summary><code>CloudFront Distribution Configuration</code></summary>
+
+```bash
+# CloudFront Origin Access Identity
+resource "aws_cloudfront_origin_access_identity" "cdn_origin_access_identity" {
+  comment = "Origin Access Identity for Next.js portfolio website"
+}
+
+# CloudFront Distribution
+resource "aws_cloudfront_distribution" "nextjs_cloudfront_distribution" {
+  origin {
+    domain_name = aws_s3_bucket.nextjs_bucket.bucket_regional_domain_name
+    origin_id   = "s3-nextjs-portfolio-bucket"
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.cdn_origin_access_identity.cloudfront_access_identity_path
+    }
+  }
+
+  enabled             = true
+  is_ipv6_enabled     = true
+  comment             = "AEB-Blog Next.js portfolio site"
+  default_root_object = "index.html"
+
+  default_cache_behavior {
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "s3-nextjs-portfolio-bucket"
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
+  }
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
+  viewer_certificate {
+    cloudfront_default_certificate = true
+  }
+}
+```
+</details>
+
+This is what the "main.tf" file looks like:
+
+</details>
+
+<details>
+<summary><code>main.tf</code></summary>
+
+```bash
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "5.57.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "ca-central-1"
+}
+
+# S3 Bucket
+resource "aws_s3_bucket" "nextjs_bucket" {
+  bucket = "aeb-blog-nextjs-bucket"
+
+  tags = {
+    Name        = "AEB-Blog Next.js Bucket"
+    Environment = "Dev"
+  }
+}
+
+# S3 Bucket Ownership
+resource "aws_s3_bucket_ownership_controls" "nextjs_bucket_ownership" {
+  bucket = aws_s3_bucket.nextjs_bucket.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+# S3 Bucket Public Access Block
+resource "aws_s3_bucket_public_access_block" "nextjs_public_access_block" {
+  bucket = aws_s3_bucket.nextjs_bucket.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+# S3 Bucket ACLs
+resource "aws_s3_bucket_acl" "nextjs_bucket_acl" {
+  depends_on = [
+    aws_s3_bucket_ownership_controls.nextjs_bucket_ownership,
+    aws_s3_bucket_public_access_block.nextjs_public_access_block
+  ]
+
+  bucket = aws_s3_bucket.nextjs_bucket.id
+  acl    = "public-read"
+}
+
+# S3 Bucket Website Configuration
+resource "aws_s3_bucket_website_configuration" "nextjs_website_config" {
+  bucket = aws_s3_bucket.nextjs_bucket.id
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
+  }
+}
+
+# S3 Bucket Policy
+resource "aws_s3_bucket_policy" "nextjs_bucket_policy" {
+  bucket = aws_s3_bucket.nextjs_bucket.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "${aws_s3_bucket.nextjs_bucket.arn}/*"
+      }
+    ]
+  })
+}
+
+# CloudFront Origin Access Identity
+resource "aws_cloudfront_origin_access_identity" "cdn_origin_access_identity" {
+  comment = "Origin Access Identity for Next.js portfolio website"
+}
+
+# CloudFront Distribution
+resource "aws_cloudfront_distribution" "nextjs_cloudfront_distribution" {
+  origin {
+    domain_name = aws_s3_bucket.nextjs_bucket.bucket_regional_domain_name
+    origin_id   = "s3-nextjs-portfolio-bucket"
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.cdn_origin_access_identity.cloudfront_access_identity_path
+    }
+  }
+
+  enabled             = true
+  is_ipv6_enabled     = true
+  comment             = "AEB-Blog Next.js portfolio site"
+  default_root_object = "index.html"
+
+  default_cache_behavior {
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "s3-nextjs-portfolio-bucket"
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
+  }
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
+  viewer_certificate {
+    cloudfront_default_certificate = true
+  }
+}
+```
+</details>
+
+Save the file and run "terraform init" to initialize the configuration files.
+'''bash
+terrafomr init
+'''
+![image](https://github.com/user-attachments/assets/fad07350-e182-4f16-ba37-fd061b0e0fa1)
