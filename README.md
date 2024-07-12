@@ -12,7 +12,8 @@
 
 
 
-![image](https://github.com/user-attachments/assets/86c936cf-82eb-4171-926f-2ed8d0cb53a0)
+![terraform portfolio project](https://github.com/user-attachments/assets/2ab9319c-f76a-4a53-aa0b-70440eab7682)
+
 
 ## <a name="prerequisites">⚙️ Prerequisites</a>
 
