@@ -368,11 +368,19 @@ terraform init
 
 ![image](https://github.com/user-attachments/assets/fad07350-e182-4f16-ba37-fd061b0e0fa1)
 
-Run "terraform plan" to what is being deployed.
+Run "terraform plan" to see what is being deployed.
+
+```bash
+terraform plan
+```
 
 ![image](https://github.com/user-attachments/assets/53096565-72e2-4e77-b434-74a68f8a20c6)
 
 Run "terraform apply" to deploy the infrastructure, type "Yes" to agree when prompted.
+
+```bash
+terraform apply
+```
 
 ![image](https://github.com/user-attachments/assets/afba68a5-2369-4ac4-8de7-3950d4d1ee9c)
 
@@ -382,6 +390,10 @@ Switch to the out folder of your Next.js project and upload the files to the S3 
 
 
 Run "terraform show" to view the CloudFront domain name and copy it.
+
+```bash
+terraform show
+```
 
 ![terraform show](https://github.com/user-attachments/assets/cd37d95f-35c0-4b15-8c7d-b47c6257e989)
 
