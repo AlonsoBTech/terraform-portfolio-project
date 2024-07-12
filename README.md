@@ -359,7 +359,9 @@ resource "aws_cloudfront_distribution" "nextjs_cloudfront_distribution" {
 </details>
 
 Save the file and run "terraform init" to initialize the configuration files.
+
 '''bash
 terrafomr init
 '''
+
 ![image](https://github.com/user-attachments/assets/fad07350-e182-4f16-ba37-fd061b0e0fa1)
