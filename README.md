@@ -384,7 +384,7 @@ terraform apply
 
 ![image](https://github.com/user-attachments/assets/afba68a5-2369-4ac4-8de7-3950d4d1ee9c)
 
-Switch to the out folder of your Next.js project and upload the files to the S3 bucket.
+Switch to the "out" folder of your Next.js project and upload the files to the S3 bucket.
 
 ![image](https://github.com/user-attachments/assets/c4d824f2-f338-4b55-b4dd-119065e7a7ea)
 
