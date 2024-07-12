@@ -75,6 +75,7 @@ What we will be creating with our code for the "main.tf"
 are:
 - S3 Bucket
 - Amazon CloudFront
+
 For the S3 bucket we need to configure the bucket ownership, configure public access for the website, 
 configure the ACL (Access Control List), set the bucket policy and configure the website configuration for our "index.hmtl".
 
