@@ -34,7 +34,7 @@ What we will be creating and using:
 
 ## <a name="quick-guide">🤸 Quick Guide</a>
 
-Create a S3 bucket and DynamoDB table for storing Terraform state locking.
+Create a S3 bucket and DynamoDB table for Terraform state locking.
 
 For the S3 bucket give it a name and leave all other defaults then click create.
 S3 Bucket Creation:
@@ -44,3 +44,34 @@ For the DynamoDB table, give it a name and set the partition key then click crea
 DynamoDB Creation:
 ![dynamodb creation](https://github.com/user-attachments/assets/344f8dcd-20cf-4954-964e-4e06a26b4372)
 
+Create a terraform folder within your Node.js project folder.
+
+</details>
+
+<details>
+<summary><code>state.tf</code></summary>
+
+```bash
+mkdir terraform-js
+```
+</details>
+
+Now create your terraform "state.tf" file which we will be using for having our state file store on AWS 
+as our backend instead of having it stored locally.
+
+</details>
+
+<details>
+<summary><code>providers.tf</code></summary>
+
+```bash
+terraform {
+  backend "s3" {
+    bucket         = "aeb-blog-terraform-state"
+    key            = "global/s3/terraform.state"
+    region         = "ca-central-1"
+    dynamodb_table = "aeb-blog-website-table"
+  }
+}
+```
+</details>
