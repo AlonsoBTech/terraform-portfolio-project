@@ -12,7 +12,9 @@
 
 
 
-![terraform portfolio project](https://github.com/user-attachments/assets/2ab9319c-f76a-4a53-aa0b-70440eab7682)
+![terraform portfolio project](https://github.com/user-attachments/assets/8e5d368d-4194-408a-b108-719bf6849d1f)
+
+
 
 
 ## <a name="prerequisites">⚙️ Prerequisites</a>
@@ -24,7 +26,6 @@ Make sure you have the following:
 - Terraform Installed
 - IDE of choice to write Terraform code
 - NPM
-- 
 
 ## <a name="what-is-being-created">🔋 What Is Being Created</a>
 
