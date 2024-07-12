@@ -70,7 +70,7 @@ terraform {
 ```
 </details>
 
-Once the "state.f" is done save it then create your "main.tf" file. This is where our main code will be located.
+Once the "state.tf" is done save it then create your "main.tf" file. This is where our main code will be located.
 What we will be creating with our code for the "main.tf"
 are:
 - S3 Bucket
