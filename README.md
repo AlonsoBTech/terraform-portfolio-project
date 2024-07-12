@@ -23,6 +23,8 @@ Make sure you have the following:
 - AWS IAM User
 - Terraform Installed
 - IDE of choice to write Terraform code
+- NPM
+- 
 
 ## <a name="what-is-being-created">🔋 What Is Being Created</a>
 
@@ -44,7 +46,7 @@ For the DynamoDB table, give it a name and set the partition key then click crea
 DynamoDB Creation:
 ![dynamodb creation](https://github.com/user-attachments/assets/344f8dcd-20cf-4954-964e-4e06a26b4372)
 
-Create a terraform folder within your Node.js project folder.
+Create a terraform folder within your Next.js project folder.
 
 ```bash
 mkdir terraform-js
@@ -76,7 +78,7 @@ are:
 - S3 Bucket
 - Amazon CloudFront
 
-For the S3 bucket we need to configure the bucket ownership, configure public access for the website, 
+For the S3 bucket we need to configure the bucket ownership, configure public access for the Next.js website, 
 configure the ACL (Access Control List), set the bucket policy and configure the website configuration for our "index.hmtl".
 
 </details>
@@ -365,3 +367,28 @@ terraform init
 ```
 
 ![image](https://github.com/user-attachments/assets/fad07350-e182-4f16-ba37-fd061b0e0fa1)
+
+Run "terraform plan" to what is being deployed.
+
+![image](https://github.com/user-attachments/assets/53096565-72e2-4e77-b434-74a68f8a20c6)
+
+Run "terraform apply" to deploy the infrastructure, type "Yes" to agree when prompted.
+
+![image](https://github.com/user-attachments/assets/afba68a5-2369-4ac4-8de7-3950d4d1ee9c)
+
+Switch to the out folder of your Next.js project and upload the files to the S3 bucket.
+
+![image](https://github.com/user-attachments/assets/c4d824f2-f338-4b55-b4dd-119065e7a7ea)
+
+
+Run "terraform show" to view the CloudFront domain name and copy it.
+
+![terraform show](https://github.com/user-attachments/assets/cd37d95f-35c0-4b15-8c7d-b47c6257e989)
+
+
+Now paste the CloudFront domain name in the web browser to access your Next.js website.
+
+![image](https://github.com/user-attachments/assets/c190ebf0-a68e-4f23-8dfb-13db4cf5f231)
+
+
+
