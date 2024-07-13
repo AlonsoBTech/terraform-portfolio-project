@@ -35,9 +35,8 @@ What we will be creating and using:
 
 ## <a name="quick-guide">🤸 Quick Guide</a>
 
-Create a S3 bucket and DynamoDB table for Terraform state locking.
-
-For the S3 bucket give it a name and leave all other defaults then click create.
+Create a S3 bucket and DynamoDB table for Terraform state locking.For the S3 bucket give it a name 
+and leave all other defaults then click create.
 
 S3 Bucket Creation:
 ![name tf s3](https://github.com/user-attachments/assets/f003ae42-62e6-468f-af2b-33dc00769501)
