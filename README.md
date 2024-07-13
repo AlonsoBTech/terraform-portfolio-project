@@ -43,6 +43,7 @@ For the S3 bucket give it a name and leave all other defaults then click create.
 S3 Bucket Creation:
 ![name tf s3](https://github.com/user-attachments/assets/f003ae42-62e6-468f-af2b-33dc00769501)
 
+
 For the DynamoDB table, give it a name and set the partition key then click create while leaving all other defaults.
 DynamoDB Creation:
 ![dynamodb creation](https://github.com/user-attachments/assets/344f8dcd-20cf-4954-964e-4e06a26b4372)
@@ -79,8 +80,12 @@ are:
 - S3 Bucket
 - Amazon CloudFront
 
-For the S3 bucket we need to configure the bucket ownership, configure public access for the Next.js website, 
-configure the ACL (Access Control List), set the bucket policy and configure the website configuration for our "index.hmtl".
+For the S3 bucket we need to configure: 
+- Bucket ownership
+- Public access for the Next.js website
+- ACL (Access Control List)
+- Set the bucket policy
+- Website configuration for our "index.hmtl".
 
 </details>
 
@@ -159,7 +164,14 @@ resource "aws_s3_bucket_policy" "nextjs_bucket_policy" {
 ```
 </details>
 
-Now we need to create our CloudFront distribution. The CloudFront distribution will need 
+
+Now we need to create our CloudFront distribution. The CloudFront distribution will need an origing access
+identity. We need to configure the CloudFront:
+- Viewer protocol policy
+- Cache behavior
+- Geolocation restrictions
+- Setting the S3 domain name as cloudfront orirgin
+
 
 </details>
 
@@ -219,7 +231,8 @@ resource "aws_cloudfront_distribution" "nextjs_cloudfront_distribution" {
 ```
 </details>
 
-This is what the "main.tf" file looks like:
+
+This is what the "main.tf" file looks like once everything is configured:
 
 </details>
 
@@ -361,6 +374,7 @@ resource "aws_cloudfront_distribution" "nextjs_cloudfront_distribution" {
 ```
 </details>
 
+
 Save the file and run "terraform init" to initialize the configuration files.
 
 ```bash
@@ -368,6 +382,7 @@ terraform init
 ```
 
 ![image](https://github.com/user-attachments/assets/fad07350-e182-4f16-ba37-fd061b0e0fa1)
+
 
 Run "terraform plan" to see what is being deployed.
 
@@ -377,6 +392,7 @@ terraform plan
 
 ![image](https://github.com/user-attachments/assets/53096565-72e2-4e77-b434-74a68f8a20c6)
 
+
 Run "terraform apply" to deploy the infrastructure, type "Yes" to agree when prompted.
 
 ```bash
@@ -384,6 +400,7 @@ terraform apply
 ```
 
 ![image](https://github.com/user-attachments/assets/afba68a5-2369-4ac4-8de7-3950d4d1ee9c)
+
 
 Switch to the "out" folder of your Next.js project and upload the files to the S3 bucket.
 
