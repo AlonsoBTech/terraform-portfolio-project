@@ -40,12 +40,14 @@ Create a S3 bucket and DynamoDB table for Terraform state locking. For the S3 bu
 and leave all other defaults then click create.
 
 S3 Bucket Creation:
+
 ![name tf s3](https://github.com/user-attachments/assets/f003ae42-62e6-468f-af2b-33dc00769501)
 
 
 For the DynamoDB table, give it a name and set the partition key then click create while leaving all other defaults.
 
 DynamoDB Creation:
+
 ![dynamodb creation](https://github.com/user-attachments/assets/344f8dcd-20cf-4954-964e-4e06a26b4372)
 
 Create a terraform folder within your Next.js project folder.
