@@ -75,9 +75,8 @@ terraform {
 ```
 </details>
 
-Once the "state.tf" is done save it then create your "main.tf" file. This is where our main code will be located.
-What we will be creating with our code for the "main.tf"
-are:
+Once the **"state.tf"** is done save it then create your **"main.tf"** file. This is where our main code will be located.
+What we will be creating with our code for the **"main.tf"** are:
 - S3 Bucket
 - Amazon CloudFront
 
@@ -85,7 +84,7 @@ For the S3 bucket we need to configure:
 - Bucket ownership
 - Public access for the Next.js website
 - ACL (Access Control List)
-- Set the bucket policy
+- Bucket policy
 - Website configuration for our "index.hmtl".
 
 </details>
@@ -166,8 +165,8 @@ resource "aws_s3_bucket_policy" "nextjs_bucket_policy" {
 </details>
 
 
-Now we need to create our CloudFront distribution. The CloudFront distribution will need an origing access
-identity. We need to configure the CloudFront:
+Now we need to create our CloudFront distribution. The CloudFront distribution will need an origin access
+identity. We need to configure the CloudFront's:
 - Viewer protocol policy
 - Cache behavior
 - Geolocation restrictions
@@ -233,7 +232,7 @@ resource "aws_cloudfront_distribution" "nextjs_cloudfront_distribution" {
 </details>
 
 
-This is what the "main.tf" file looks like once everything is configured:
+This is what the **"main.tf"** file looks like once everything is configured:
 
 </details>
 
@@ -376,7 +375,7 @@ resource "aws_cloudfront_distribution" "nextjs_cloudfront_distribution" {
 </details>
 
 
-Save the file and run "terraform init" to initialize the configuration files.
+Save the file and run **"terraform init"** to initialize the configuration files.
 
 ```bash
 terraform init
@@ -385,7 +384,7 @@ terraform init
 ![image](https://github.com/user-attachments/assets/fad07350-e182-4f16-ba37-fd061b0e0fa1)
 
 
-Run "terraform plan" to see what is being deployed.
+Run **"terraform plan"** to see what is being deployed.
 
 ```bash
 terraform plan
@@ -394,7 +393,7 @@ terraform plan
 ![image](https://github.com/user-attachments/assets/53096565-72e2-4e77-b434-74a68f8a20c6)
 
 
-Run "terraform apply" to deploy the infrastructure, type "Yes" to agree when prompted.
+Run **"terraform apply"** to deploy the infrastructure, type **"Yes"** to agree when prompted.
 
 ```bash
 terraform apply
@@ -403,12 +402,12 @@ terraform apply
 ![image](https://github.com/user-attachments/assets/afba68a5-2369-4ac4-8de7-3950d4d1ee9c)
 
 
-Switch to the "out" folder of your Next.js project and upload the files to the S3 bucket.
+Switch to the **"out"** folder of your Next.js project and upload the files to the S3 bucket.
 
 ![image](https://github.com/user-attachments/assets/c4d824f2-f338-4b55-b4dd-119065e7a7ea)
 
 
-Run "terraform show" to view the CloudFront domain name and copy it.
+Return the terraform folder and run **"terraform show"** to view the CloudFront domain name and copy it.
 
 ```bash
 terraform show
