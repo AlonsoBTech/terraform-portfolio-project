@@ -13,7 +13,7 @@
 This project focus on implementing a solution for deploying a Next.js website. The website deployment needs to be
 scalable, cost-effective, highly available and delivers fast loading times for a global audience. Amazon S3 
 will be our choice of hosting the website as it is cost-effective, scalable and also highly available. As for fast load
-time and global reach, we will be using Amazon CloudFront for our content delivery network.
+times and global reach, we will be using Amazon CloudFront for our content delivery network.
 
 ![terraform portfolio project](https://github.com/user-attachments/assets/8e5d368d-4194-408a-b108-719bf6849d1f)
 
