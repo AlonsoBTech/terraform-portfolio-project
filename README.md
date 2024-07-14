@@ -44,7 +44,7 @@ S3 Bucket Creation:
 ![name tf s3](https://github.com/user-attachments/assets/f003ae42-62e6-468f-af2b-33dc00769501)
 
 
-For the DynamoDB table, give it a name and set the partition key then click create while leaving all other defaults.
+For the DynamoDB table, give it a name, then set the partition key, leave all other settings default and click create.
 
 DynamoDB Creation:
 
