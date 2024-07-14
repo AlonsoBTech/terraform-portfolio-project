@@ -11,7 +11,7 @@
 5. ## <a name="introduction">🤖 Introduction</a>
 
 This project focus on implementing a solution for deploying a Next.js website. The website deployment needs to be
-scalable, cost-effective, highly available and delivers fast loading times to cater for a global audience. Amazon S3 
+scalable, cost-effective, highly available and delivers fast loading times for a global audience. Amazon S3 
 will be our choice of hosting the website as it is cost-effective, scalable and also highly available. As for fast load
 time and global reach, we will be using Amazon CloudFront for our content delivery network.
 
