@@ -56,8 +56,7 @@ Create a terraform folder within your Next.js project folder.
 mkdir terraform-js
 ```
 
-Now create your terraform "state.tf" file which we will be using for storing our state file on AWS 
-as our backend instead of having it stored locally. 
+Now create your terraform "state.tf" file, we will configure it to have AWS as our backend for storing the state file. 
 
 </details>
 
