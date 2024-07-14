@@ -25,7 +25,6 @@ Make sure you have the following:
 - AWS IAM User
 - Terraform Installed
 - IDE of choice to write Terraform code
-- NPM
 
 ## <a name="what-is-being-created">🔋 What Is Being Created</a>
 
